@@ -8,7 +8,7 @@ const Home = () => {
 
       {/* Content */}
       <div className="relative  flex flex-col items-center justify-center h-full text-white">
-        <div className="w-34 h-8 md:w-48 md:h-14 text-xs bg-[#FDD6D6] text-[#F54748] font-semibold mb-7 rounded-full flex justify-center items-center">
+        <div className="w-34 h-8 md:w-48 md:h-14 text-xs md:text-[17px] bg-[#FDD6D6] text-[#F54748] font-semibold mb-7 rounded-full flex justify-center items-center">
           Beyond Speedy 🍕
         </div>
         <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold tec text-center mb-5 md:mb-10">
