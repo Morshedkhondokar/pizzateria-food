@@ -1,4 +1,5 @@
 import { useState } from "react";
+import GoogleLoginBtn from "../components/GoogleLoginBtn";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const Signup = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 py-20">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-6 mx-3">
         <h2 className="text-3xl font-bold text-center text-[#F54748] mb-6">
           Sign Up
         </h2>
@@ -95,12 +96,14 @@ const Signup = () => {
         </form>
 
         {/* Already have account */}
-        <p className="text-center text-gray-600 mt-4">
+        <p className="text-center text-gray-600 my-4">
           Already have an account?{" "}
           <a href="/login" className="text-[#F54748] font-medium hover:underline">
             Login
           </a>
         </p>
+        {/*  login with google */}
+        <GoogleLoginBtn/>
       </div>
     </div>
   );
