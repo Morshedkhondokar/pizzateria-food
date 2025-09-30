@@ -7,6 +7,8 @@ import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Menu from './pages/Menu.jsx'
 import Contact from './pages/Contact.jsx'
+import Signup from './pages/Signup.jsx'
+import Login from './pages/Login.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
       {
         path:'/contact',
         element:<Contact/>
+      },
+      {
+        path: "/signUp",
+        element: <Signup/>
+      },
+      {
+        path:"/login",
+        element: <Login/>
       }
     ]
   }

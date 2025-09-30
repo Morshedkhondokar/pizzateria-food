@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <div className="my-24">
       <div className="text-center mb-16">
-        <p className="font-bold  text-[#F54748]">About us</p>
+        <p className="font-bold  text-[#F54748] tracking-widest">About us</p>
         <h2 className="font-bold text-2xl md:text-[38px]">
           Let's delve deeper into
         </h2>

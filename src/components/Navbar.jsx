@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoClose, IoLogInOutline } from "react-icons/io5";
 import { TiThMenu } from "react-icons/ti";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,10 +34,12 @@ const Navbar = () => {
 
         <ul className="hidden md:flex gap-5">{links}</ul>
 
-        <button className="py-2 px-3 bg-[#F54748] hover:bg-[#ff6149] duration-300 rounded-full cursor-pointer text-white hidden md:flex items-center gap-1">
+        <Link to={'/login'}>
+          <button className="py-2 px-3 bg-[#F54748] hover:bg-[#ff6149] duration-300 rounded-full cursor-pointer text-white hidden md:flex items-center gap-1">
           <IoLogInOutline className="text-xl" />
           Login
         </button>
+        </Link>
 
         {/* Menu button (small device) */}
         <div className="md:hidden">

@@ -16,7 +16,7 @@ const MenuItem = () => {
     <div className="my-24 mx-3">
       {/* Title */}
       <div className="text-center mb-16">
-        <p className="font-bold  text-[#F54748]">Our Selection</p>
+        <p className="font-bold  text-[#F54748] tracking-widest">Our Selection</p>
         <h2 className="font-bold text-2xl md:text-[38px]">
           A Menu That Will Always
         </h2>
