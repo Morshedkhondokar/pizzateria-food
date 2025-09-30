@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import MenuCard from "./MenuCard";
 
 const MenuHome = () => {
   const [activeCategory, setActiveCategory] = useState("Pizza");
@@ -13,7 +14,7 @@ const MenuHome = () => {
   ];
 
   return (
-    <div className="my-24 mx-1">
+    <div className="my-24 mx-3">
       {/* Title */}
       <div className="text-center mb-16">
         <p className="font-bold  text-[#F54748]">Our Selection</p>
@@ -32,7 +33,8 @@ const MenuHome = () => {
           className="flex gap-5 items-center 
           overflow-x-auto md:overflow-x-visible   
           flex-nowrap md:flex-wrap            
-          md:justify-center"
+          md:justify-center px-2"
+          
         >
           {categories.map((cate) => (
             <div key={cate.name} className="w-38  h-14 my-2.5 flex-shrink-0">
@@ -55,6 +57,8 @@ const MenuHome = () => {
         {/* fixed arrow */}
         <FaArrowRight className="absolute md:hidden -top-1/10  right-2 text-[#F54748] text-xl" />
       </div>
+      {/* Pizza card */}
+      <MenuCard/>
     </div>
   );
 };
