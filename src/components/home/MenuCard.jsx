@@ -13,7 +13,7 @@ const MenuCard = () => {
   }, []);
 
   return (
-    <div className="grid place-items-center grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 my-10">
+    <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-10">
       {pizzas.map((pizza) => (
         <div key={pizza.id} className="w-[300px] shadow-lg rounded-xl overflow-hidden">
           <div className="relative h-[200px]">

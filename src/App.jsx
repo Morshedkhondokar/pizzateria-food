@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import 'animate.css';
 import 'aos/dist/aos.css';
 import Aos from 'aos';
+import Footer from './components/Footer';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
     <div className='max-w-7xl mx-auto'>
       <Navbar/>
       <Outlet/>
+      <Footer/>
     </div>
   );
 };
