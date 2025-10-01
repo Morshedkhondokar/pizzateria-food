@@ -9,6 +9,9 @@ import Menu from './pages/Menu.jsx'
 import Contact from './pages/Contact.jsx'
 import Signup from './pages/Signup.jsx'
 import Login from './pages/Login.jsx'
+import AllProducts from './pages/AllProducts.jsx'
+import AddProduct from './pages/AddProduct.jsx'
+import UpdateProduct from './pages/UpdateProduct.jsx'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,18 @@ const router = createBrowserRouter([
       {
         path:"/login",
         element: <Login/>
+      },
+      {
+        path: '/allProducts',
+        element: <AllProducts/>
+      },
+      {
+        path: '/add',
+        element: <AddProduct/>
+      },
+      {
+        path: '/product/:id',
+        element: <UpdateProduct/>
       }
     ]
   }
