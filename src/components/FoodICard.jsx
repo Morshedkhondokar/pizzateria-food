@@ -2,10 +2,11 @@ import { FaStar } from "react-icons/fa";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 
+
 const FoodICard = ({ food ,foods,setFoods}) => {
   const { _id, name, price, quantity, description, image } = food;
 
-  // console.log('food card',name)
+  
 
   //=========//--- handle delete operation
   const handleDelate = (id) => {
@@ -73,7 +74,7 @@ const FoodICard = ({ food ,foods,setFoods}) => {
         <div>
           <div className="flex items-center gap-2.5">
             <Link
-              to={`/product/${_id}`}
+              to={`/UpdateFood/${_id}`}
               className="mt-3 inline-block px-3 py-1 bg-[#F54748] text-white rounded-md"
             >
               Edit

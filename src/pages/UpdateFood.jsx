@@ -3,7 +3,7 @@
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 
-const UpdateProduct = () => {
+const UpdateFood = () => {
   const { _id, name, price, quantity, category, description, image } =
     useLoaderData();
 
@@ -146,4 +146,4 @@ const UpdateProduct = () => {
   );
 };
 
-export default UpdateProduct;
+export default UpdateFood;

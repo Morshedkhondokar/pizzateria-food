@@ -1,73 +1,83 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router'
-import Home from './pages/Home.jsx'
-import About from './pages/About.jsx'
-import Menu from './pages/Menu.jsx'
-import Contact from './pages/Contact.jsx'
-import Signup from './pages/Signup.jsx'
-import Login from './pages/Login.jsx'
-import AllProducts from './pages/AllProducts.jsx'
-import AddProduct from './pages/AddProduct.jsx'
-import UpdateProduct from './pages/UpdateProduct.jsx'
-import FoodDetails from './components/FoodDetails.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import Home from "./pages/Home.jsx";
+import About from "./pages/About.jsx";
+import Menu from "./pages/Menu.jsx";
+import Contact from "./pages/Contact.jsx";
+import Signup from "./pages/Signup.jsx";
+import Login from "./pages/Login.jsx";
+import AllFoods from "./pages/AllFoods.jsx";
+import UpdateFood from "./pages/UpdateFood.jsx";
+import FoodDetails from "./components/FoodDetails.jsx";
+import AddFood from "./pages/AddFood.jsx";
+import CartPage from "./pages/CartPage.jsx";
+import CartProvider from "./components/provider/CartProvider.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App/>,
-    children:[
+    path: "/",
+    element: <App />,
+    children: [
       {
-        path: '/',
-        element: <Home/>
+        path: "/",
+        element: <Home />,
       },
       {
-        path:"/about",
-        element:<About/>
+        path: "/about",
+        element: <About />,
       },
       {
-        path:'/menu',
-        element: <Menu/>
+        path: "/menu",
+        element: <Menu />,
       },
       {
-        path:'/contact',
-        element:<Contact/>
+        path: "/contact",
+        element: <Contact />,
       },
       {
         path: "/signUp",
-        element: <Signup/>
+        element: <Signup />,
       },
       {
-        path:"/login",
-        element: <Login/>
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: '/allProducts',
-        loader: () => fetch('http://localhost:5000/foods'),
-        element: <AllProducts/>
+        path: "/allFoods",
+        loader: () => fetch("http://localhost:5000/foods"),
+        element: <AllFoods />,
       },
       {
-        path: '/add',
-        element: <AddProduct/>
+        path: "/add",
+        element: <AddFood />,
       },
       {
-        path: '/product/:id',
-        loader: ({params}) => fetch(`http://localhost:5000/foods/${params.id}`),
-        element: <UpdateProduct/>
+        path: "/UpdateFood/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/foods/${params.id}`),
+        element: <UpdateFood />,
       },
       {
-        path: '/foodDetails/:id',
-        loader: ({params}) => fetch(`http://localhost:5000/foods/${params.id}`),
-        element: <FoodDetails/>
-      }
-    ]
-  }
-])
+        path: "/foodDetails/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/foods/${params.id}`),
+        element: <FoodDetails />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
+      },
+    ],
+  },
+]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}/>
-  </StrictMode>,
-)
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
+  </StrictMode>
+);

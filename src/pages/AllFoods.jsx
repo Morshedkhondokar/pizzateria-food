@@ -1,14 +1,10 @@
-import {  Link, useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import FoodICard from "../components/FoodICard";
 import { useState } from "react";
 
-const AllProducts = () => {
-  const initialFoods = useLoaderData()
-  const [foods,setFoods] = useState(initialFoods)
-  
-
-
- 
+const AllFoods = () => {
+  const initialFoods = useLoaderData();
+  const [foods, setFoods] = useState(initialFoods);
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 flex flex-col items-center">
@@ -23,14 +19,17 @@ const AllProducts = () => {
 
       {/* grid layout */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      
-         {
-          foods.map(food =>  <FoodICard key={food._id} food={food} foods={foods} setFoods={setFoods}/>)
-         }
-        
+        {foods.map((food) => (
+          <FoodICard
+            key={food._id}
+            food={food}
+            foods={foods}
+            setFoods={setFoods}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
-export default AllProducts;
+export default AllFoods;

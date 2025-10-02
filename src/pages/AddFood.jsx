@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-const AddProduct = () => {
+const AddFood = () => {
   const handleAddFood = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -155,4 +155,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddFood;
