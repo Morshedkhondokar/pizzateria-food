@@ -4,13 +4,13 @@ import MenuCard from "../home/MenuCard";
 
 
 const MenuItem = () => {
-    const [activeCategory, setActiveCategory] = useState("Pizza");
+    const [activeCategory, setActiveCategory] = useState("pizza");
     const categories = [
-    { name: "Burger", img: "images/burger.png" },
-    { name: "Pizza", img: "images/pizza.png" },
-    { name: "Cupcake", img: "images/cupcake.png" },
-    { name: "Ramen", img: "images/ramen.png" },
-    { name: "IceCream", img: "images/IceCream.png" },
+     { name: "burger", img: "images/burger.png" },
+    { name: "pizza", img: "images/pizza.png" },
+    { name: "cupcake", img: "images/cupcake.png" },
+    { name: "ramen", img: "images/ramen.png" },
+    { name: "iceCream", img: "images/IceCream.png" },
   ];
     return (
     <div className="my-24 mx-3">
@@ -57,7 +57,7 @@ const MenuItem = () => {
         <FaArrowRight className="absolute md:hidden -top-1/10  right-2 text-[#F54748] text-xl" />
       </div>
       {/* Pizza card */}
-      <MenuCard/>
+      <MenuCard activeCategory={activeCategory}/>
     </div>
   );
 };

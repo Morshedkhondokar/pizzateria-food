@@ -145,7 +145,7 @@ const AddFood = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-[#F54748] text-white py-2 rounded-full font-semibold"
+            className="w-full cursor-pointer bg-[#F54748] text-white py-2 rounded-full font-semibold"
           >
             Add Product
           </button>

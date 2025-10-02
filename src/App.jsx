@@ -13,12 +13,12 @@ import Loader from './components/Loader ';
 const App = () => {
   const {loading} = useContext(AuthContext)
 
-  //  useEffect(() => {
-  //   Aos.init({
-  //     // duration: 1000, 
-  //     // once: true,    
-  //   });
-  // }, []);
+   useEffect(() => {
+    Aos.init({
+      // duration: 1000, 
+      // once: true,    
+    });
+  }, []);
 
   if(loading){
     return <Loader/>

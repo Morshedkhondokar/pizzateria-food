@@ -3,7 +3,7 @@ import { FaMinusCircle, FaPlus, FaPlusCircle, FaStar } from "react-icons/fa";
 import CartContext from "../context/CartContext";
 import { Link } from "react-router";
 
-const MenuCard = () => {
+const MenuCard = ({activeCategory}) => {
   const [pizzas, setPizzas] = useState([]);
   const { cart, addToCart, increaseQuantity, decreaseQuantity } =
     useContext(CartContext);
@@ -12,8 +12,11 @@ const MenuCard = () => {
     useEffect(()=>{
       fetch("http://localhost:5000/foods")
       .then((res) => res.json())
-      .then((data) => setPizzas(data));
-    },[pizzas])
+      .then((data) => {
+        const filter = data.filter(item=> item.category === activeCategory) 
+        setPizzas(filter)
+      });
+    },[activeCategory])
  
 
   // helper: find pizza quantity in cart
