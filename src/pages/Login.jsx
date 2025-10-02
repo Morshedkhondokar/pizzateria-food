@@ -2,10 +2,16 @@
 import { useContext } from "react";
 import GoogleLoginBtn from "../components/GoogleLoginBtn";
 import AuthContext from "../components/context/AuthContext";
+import { useLocation, useNavigate } from "react-router";
 
 const Login = () => {
   
-  const {loginUser,setUser} = useContext(AuthContext)
+  const {loginUser,setUser} = useContext(AuthContext);  
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
+
 
   // submit handle
   const handleSubmit = (e) => {
@@ -25,6 +31,7 @@ const Login = () => {
     .then(result =>{
       const user = result.user;
       setUser(user)
+      navigate(from, { replace: true });
     })
     .catch(error =>{
       console.log(error)

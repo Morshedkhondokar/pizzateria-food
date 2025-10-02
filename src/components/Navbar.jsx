@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cart } = useContext(CartContext);
   const { user,logOut } = useContext(AuthContext);
-  console.log("Current user:", user.photoURL);
+  // console.log("Current user:", user.photoURL);
 
   const profileImg =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
@@ -101,7 +101,7 @@ const Navbar = () => {
                 onClick={handleLogOutUser}
                 className="w-8 h-8 bg-amber-600 rounded-full overflow-hidden"
               >
-                <img src={user.photoURL || profileImg} alt="" />
+                <img src={user?.photoURL || profileImg} alt="" />
               </div>
             ) : (
               <Link to={"/login"}>

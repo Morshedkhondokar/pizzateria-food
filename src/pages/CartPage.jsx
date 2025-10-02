@@ -1,22 +1,32 @@
 import { useContext } from "react";
+import { useLocation, useNavigate } from "react-router";
 import CartContext from "../components/context/CartContext";
+import AuthContext from "../components/context/AuthContext";
 import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 import Swal from "sweetalert2";
 
 const CartPage = () => {
-  const { cart, setCart, removeFromCart, decreaseQuantity, increaseQuantity } =
-    useContext(CartContext);
+  const { cart, setCart, removeFromCart, decreaseQuantity, increaseQuantity } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const handlePurchase = () => {
+    if (!user) {
+      navigate("/login", { state: { from: location.pathname } });
+      return;
+    }
+
+    // User login  purchase
     Swal.fire({
       title: "Payment Successfully.",
       icon: "success",
       draggable: true,
     });
-    setCart([])
+    setCart([]);
   };
 
   return (
@@ -24,22 +34,23 @@ const CartPage = () => {
       <h2 className="text-3xl font-bold text-[#F54748] mb-6">Your Cart</h2>
 
       {cart.length === 0 ? (
-        <p className="text-4xl flex justify-center items-center h-[200px] max-w-3xl ">Cart is empty 🛒</p>
+        <p className="text-4xl flex justify-center items-center h-[200px] max-w-3xl">
+          Cart is empty 🛒
+        </p>
       ) : (
-        <div className="w-full  max-w-2xl bg-white px-3 p-3 rounded-lg shadow-md">
+        <div className="w-full max-w-2xl bg-white px-3 p-3 rounded-lg shadow-md">
           {cart.map((item) => (
             <div
               key={item._id}
               className="relative flex justify-between items-center border-b py-3"
             >
               <div className="flex gap-2 md:gap-6">
-                <div className="w-38 h-24  rounded-2xl overflow-hidden">
+                <div className="w-38 h-24 rounded-2xl overflow-hidden">
                   <img className="w-full h-full" src={item.image} alt="" />
                 </div>
                 <div>
-                  <h3 className=" font-semibold">{item.name}</h3>
+                  <h3 className="font-semibold">{item.name}</h3>
                   <p>Price: ${item.price}</p>
-                  {/*  */}
                   <div className="flex items-center gap-2.5 mt-2.5">
                     <FaMinusCircle
                       onClick={() => decreaseQuantity(item._id)}
