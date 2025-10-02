@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FaMinusCircle, FaPlus, FaPlusCircle, FaStar } from "react-icons/fa";
 import CartContext from "../context/CartContext";
 import { Link } from "react-router";
@@ -9,9 +9,11 @@ const MenuCard = () => {
     useContext(CartContext);
 
  
-    fetch("http://localhost:5000/foods")
+    useEffect(()=>{
+      fetch("http://localhost:5000/foods")
       .then((res) => res.json())
       .then((data) => setPizzas(data));
+    },[pizzas])
  
 
   // helper: find pizza quantity in cart

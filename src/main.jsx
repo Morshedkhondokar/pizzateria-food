@@ -15,6 +15,7 @@ import FoodDetails from "./components/FoodDetails.jsx";
 import AddFood from "./pages/AddFood.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import CartProvider from "./components/provider/CartProvider.jsx";
+import AuthProvider from "./components/provider/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -76,8 +77,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </AuthProvider>
   </StrictMode>
 );

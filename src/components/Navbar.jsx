@@ -4,10 +4,12 @@ import { IoClose, IoLogInOutline } from "react-icons/io5";
 import { TiThMenu } from "react-icons/ti";
 import { Link, NavLink } from "react-router";
 import CartContext from "./context/CartContext";
+import AuthContext from "./context/AuthContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {cart} = useContext(CartContext)
+  const { cart } = useContext(CartContext);
+  const { name } = useContext(AuthContext);
 
   const links = (
     <>
@@ -56,20 +58,31 @@ const Navbar = () => {
           <div className="relative  ">
             <Link to={"/cart"}>
               <FaBasketShopping className="text-2xl " />
-              {
-                cart.length !== 0 ?  <p className="absolute -top-3 -right-1 size-4 flex justify-center items-center rounded-full text-xs text-white bg-red-500">
-                {cart.length} 
-              </p> : ""
-              }
+              {cart.length !== 0 ? (
+                <p className="absolute -top-3 -right-1 size-4 flex justify-center items-center rounded-full text-xs text-white bg-red-500">
+                  {cart.length}
+                </p>
+              ) : (
+                ""
+              )}
             </Link>
           </div>
 
-          <Link to={"/login"}>
-            <button className="md:py-2 p-2 md:px-3 text-xs md:text-xl bg-[#F54748] hover:bg-[#ff6149] duration-300 rounded-full cursor-pointer text-white flex items-center gap-1">
-              <IoLogInOutline className="text-xl" />
-              Login
-            </button>
-          </Link>
+          {/* login and profile  */}
+          <div>
+            {name ? (
+              <div className="size-8 bg-amber-600 rounded-full overflow-hidden">
+                
+              </div>
+            ) : (
+              <Link to={"/login"}>
+                <button className="md:py-2 p-2 md:px-3 text-xs md:text-xl bg-[#F54748] hover:bg-[#ff6149] duration-300 rounded-full cursor-pointer text-white flex items-center gap-1">
+                  <IoLogInOutline className="text-xl" />
+                  Login
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 

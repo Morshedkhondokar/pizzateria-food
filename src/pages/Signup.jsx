@@ -1,25 +1,32 @@
-import { useState } from "react";
+import { use } from "react";
+import AuthContext from "../components/context/AuthContext";
 import GoogleLoginBtn from "../components/GoogleLoginBtn";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  // input change handle
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const { createUser } = use(AuthContext);
 
   // submit handle
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    // API or backend calls can be made here 
+    const form = e.target;
+    const formData = new FormData(form);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    // console.log(email,password);
+    
+    if (password.length < 6) {
+      return alert("Your password must be at least 6 characters long");
+    }
+
+    // create user
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -36,8 +43,6 @@ const Signup = () => {
             <input
               type="text"
               name="name"
-              value={formData.name}
-              onChange={handleChange}
               placeholder="Enter your full name"
               className="w-full border-2 border-[#707070] rounded-md px-4 py-2 focus:outline-none focus:border-[#F54748]"
               required
@@ -50,8 +55,6 @@ const Signup = () => {
             <input
               type="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
               placeholder="Enter your email"
               className="w-full border-2 border-[#707070] rounded-md px-4 py-2 focus:outline-none focus:border-[#F54748]"
               required
@@ -64,8 +67,6 @@ const Signup = () => {
             <input
               type="password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
               placeholder="Enter your password"
               className="w-full border-2 border-[#707070] rounded-md px-4 py-2 focus:outline-none focus:border-[#F54748]"
               required
@@ -78,8 +79,6 @@ const Signup = () => {
             <input
               type="password"
               name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
               placeholder="Confirm your password"
               className="w-full border-2 border-[#707070] rounded-md px-4 py-2 focus:outline-none focus:border-[#F54748]"
               required
@@ -98,12 +97,15 @@ const Signup = () => {
         {/* Already have account */}
         <p className="text-center text-gray-600 my-4">
           Already have an account?{" "}
-          <a href="/login" className="text-[#F54748] font-medium hover:underline">
+          <a
+            href="/login"
+            className="text-[#F54748] font-medium hover:underline"
+          >
             Login
           </a>
         </p>
         {/*  login with google */}
-        <GoogleLoginBtn/>
+        <GoogleLoginBtn />
       </div>
     </div>
   );
