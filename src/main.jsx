@@ -12,6 +12,7 @@ import Login from './pages/Login.jsx'
 import AllProducts from './pages/AllProducts.jsx'
 import AddProduct from './pages/AddProduct.jsx'
 import UpdateProduct from './pages/UpdateProduct.jsx'
+import FoodDetails from './components/FoodDetails.jsx'
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
       {
         path: '/product/:id',
         element: <UpdateProduct/>
+      },
+      {
+        path: '/foodDetails/:id',
+        loader: ({params}) => fetch(`http://localhost:5000/foods/${params.id}`),
+        element: <FoodDetails/>
       }
     ]
   }

@@ -3,7 +3,7 @@ import FoodICard from "../components/FoodICard";
 
 const AllProducts = () => {
   const foods = useLoaderData()
-  console.log('All foods',foods)
+  // console.log('All foods',foods)
   
 
 

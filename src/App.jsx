@@ -5,6 +5,7 @@ import 'animate.css';
 import 'aos/dist/aos.css';
 import Aos from 'aos';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
   
   return (
     <div className='max-w-7xl mx-auto'>
+      <ScrollToTop/>
       <Navbar/>
       <Outlet/>
       <Footer/>
