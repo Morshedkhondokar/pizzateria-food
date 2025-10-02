@@ -1,9 +1,10 @@
 import {  Link, useLoaderData } from "react-router";
 import FoodICard from "../components/FoodICard";
+import { useState } from "react";
 
 const AllProducts = () => {
-  const foods = useLoaderData()
-  // console.log('All foods',foods)
+  const initialFoods = useLoaderData()
+  const [foods,setFoods] = useState(initialFoods)
   
 
 
@@ -24,7 +25,7 @@ const AllProducts = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       
          {
-          foods.map(food =>  <FoodICard key={food._id} food={food}/>)
+          foods.map(food =>  <FoodICard key={food._id} food={food} foods={foods} setFoods={setFoods}/>)
          }
         
       </div>

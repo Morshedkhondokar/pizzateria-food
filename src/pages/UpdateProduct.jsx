@@ -1,53 +1,54 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
+// import { useEffect, useState } from "react";
+
+import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
 const UpdateProduct = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [product, setProduct] = useState({
-    name: "",
-    price: "",
-    quantity: "",
-    description: "",
-    image: "",
-  });
+  const { _id, name, price, quantity, category, description, image } =
+    useLoaderData();
 
-  useEffect(() => {
-    // এখন pizzas.json থেকে data নিচ্ছি (public ফোল্ডার থেকে)
-    fetch(`/pizzas.json`)
+  const handleUpdateFood = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const updateFood = Object.fromEntries(formData.entries());
+    // console.log(updateFood);
+
+    //  updated food data to mongodb
+    fetch(`http://localhost:5000/foods/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updateFood),
+    })
       .then((res) => res.json())
       .then((data) => {
-        const found = data.find((item) => item.id == id);
-        if (found) setProduct(found);
+        if (data.modifiedCount) {
+          let timerInterval;
+          Swal.fire({
+            title: "Update Food",
+            html: "Food is updating.",
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              const timer = Swal.getPopup().querySelector("b");
+              timerInterval = setInterval(() => {
+                timer.textContent = `${Swal.getTimerLeft()}`;
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log("I was closed by the timer");
+            }
+          });
+        }
       });
-
-    // ❌ পরে backend connect হলে এইটা ব্যবহার করবে
-    /*
-    fetch(`http://localhost:5000/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => setProduct(data));
-    */
-  }, [id]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // ❌ এখন backend নাই তাই comment করে রাখো
-    /*
-    fetch(`http://localhost:5000/products/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(product),
-    }).then(() => navigate(`/allProducts`));
-    */
-
-    // ✅ UI check করার জন্য শুধু navigate করছি
-    navigate("/allProducts");
   };
 
   return (
@@ -56,16 +57,14 @@ const UpdateProduct = () => {
         <h2 className="text-3xl font-bold text-center text-[#F54748] mb-6">
           Update Product
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          
+        <form onSubmit={handleUpdateFood} className="space-y-4">
           {/* Name */}
           <div>
             <label className="block mb-1 font-medium">Product Name</label>
             <input
               type="text"
               name="name"
-              value={product.name || ""}
-              onChange={handleChange}
+              defaultValue={name}
               placeholder="Enter product name"
               className="w-full border-2 border-gray-400 px-4 py-2 rounded-md focus:border-[#F54748]"
               required
@@ -78,8 +77,7 @@ const UpdateProduct = () => {
             <input
               type="number"
               name="price"
-              value={product.price || ""}
-              onChange={handleChange}
+              defaultValue={price}
               placeholder="Enter price"
               className="w-full border-2 border-gray-400 px-4 py-2 rounded-md focus:border-[#F54748]"
               required
@@ -92,9 +90,21 @@ const UpdateProduct = () => {
             <input
               type="number"
               name="quantity"
-              value={product.quantity || ""}
-              onChange={handleChange}
+              defaultValue={quantity}
               placeholder="Enter quantity"
+              className="w-full border-2 border-gray-400 px-4 py-2 rounded-md focus:border-[#F54748]"
+              required
+            />
+          </div>
+
+          {/* category */}
+          <div>
+            <label className="block mb-1 font-medium">Category</label>
+            <input
+              type="text"
+              name="quantity"
+              defaultValue={category}
+              placeholder="Enter Category"
               className="w-full border-2 border-gray-400 px-4 py-2 rounded-md focus:border-[#F54748]"
               required
             />
@@ -106,8 +116,7 @@ const UpdateProduct = () => {
             <input
               type="text"
               name="description"
-              value={product.description || ""}
-              onChange={handleChange}
+              defaultValue={description}
               placeholder="Enter description"
               className="w-full border-2 border-gray-400 px-4 py-2 rounded-md focus:border-[#F54748]"
             />
@@ -119,8 +128,7 @@ const UpdateProduct = () => {
             <input
               type="text"
               name="image"
-              value={product.img || ""}
-              onChange={handleChange}
+              defaultValue={image}
               placeholder="Enter image url"
               className="w-full border-2 border-gray-400 px-4 py-2 rounded-md focus:border-[#F54748]"
             />
@@ -128,7 +136,7 @@ const UpdateProduct = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#F54748] text-white py-2 rounded-full"
+            className="w-full bg-[#F54748] text-white py-2 rounded-full cursor-pointer"
           >
             Update Product
           </button>

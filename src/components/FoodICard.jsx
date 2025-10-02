@@ -2,7 +2,7 @@ import { FaStar } from "react-icons/fa";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 
-const FoodICard = ({ food }) => {
+const FoodICard = ({ food ,foods,setFoods}) => {
   const { _id, name, price, quantity, description, image } = food;
 
   // console.log('food card',name)
@@ -33,7 +33,9 @@ const FoodICard = ({ food }) => {
                 text: "Your Food has been deleted.",
                 icon: "success",
               });
-              console.log(data);
+              // remove the ui
+              const remainnigFood = foods.filter(item => item._id !== _id)
+              setFoods(remainnigFood)
             }
           });
       }
