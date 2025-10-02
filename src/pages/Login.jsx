@@ -1,23 +1,35 @@
-import { useState } from "react";
+
+import { useContext } from "react";
 import GoogleLoginBtn from "../components/GoogleLoginBtn";
+import AuthContext from "../components/context/AuthContext";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  // input change handle
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  
+  const {loginUser,setUser} = useContext(AuthContext)
 
   // submit handle
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login Data:", formData);
-    // API or backend calls can be made here
+     const form = e.target;
+    const formData = new FormData(form);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    // console.log(email,password);
+    
+    if (password.length < 6) {
+      return alert("Your password must be at least 6 characters !");
+    }
+
+    // login with firebase
+    loginUser(email,password)
+    .then(result =>{
+      const user = result.user;
+      setUser(user)
+    })
+    .catch(error =>{
+      console.log(error)
+    })
+
   };
 
   return (
@@ -34,8 +46,7 @@ const Login = () => {
             <input
               type="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
+            
               placeholder="Enter your email"
               className="w-full border-2 border-[#707070] rounded-md px-4 py-2 focus:outline-none focus:border-[#F54748]"
               required
@@ -48,8 +59,7 @@ const Login = () => {
             <input
               type="password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
+             
               placeholder="Enter your password"
               className="w-full border-2 border-[#707070] rounded-md px-4 py-2 focus:outline-none focus:border-[#F54748]"
               required
@@ -59,7 +69,7 @@ const Login = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-[#F54748] text-white py-2 rounded-full font-semibold hover:bg-[#d83e3e] transition duration-300"
+            className="w-full bg-[#F54748] text-white py-2 rounded-full font-semibold hover:bg-[#d83e3e] transition duration-300 cursor-pointer"
           >
             Login
           </button>

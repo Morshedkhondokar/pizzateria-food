@@ -3,7 +3,7 @@ import AuthContext from "../components/context/AuthContext";
 import GoogleLoginBtn from "../components/GoogleLoginBtn";
 
 const Signup = () => {
-  const { createUser } = use(AuthContext);
+  const { createUser,setUser } = use(AuthContext);
 
   // submit handle
   const handleSubmit = (e) => {
@@ -13,7 +13,7 @@ const Signup = () => {
     const email = formData.get("email");
     const password = formData.get("password");
     // console.log(email,password);
-    
+
     if (password.length < 6) {
       return alert("Your password must be at least 6 characters long");
     }
@@ -22,7 +22,7 @@ const Signup = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        setUser(user);
       })
       .catch((error) => {
         console.log(error);
@@ -88,7 +88,7 @@ const Signup = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-[#F54748] text-white py-2 rounded-full font-semibold hover:bg-[#d83e3e] transition duration-300"
+            className="w-full cursor-pointer bg-[#F54748] text-white py-2 rounded-full font-semibold hover:bg-[#d83e3e] transition duration-300"
           >
             Create Account
           </button>

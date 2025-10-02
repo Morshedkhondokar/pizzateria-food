@@ -5,11 +5,16 @@ import { TiThMenu } from "react-icons/ti";
 import { Link, NavLink } from "react-router";
 import CartContext from "./context/CartContext";
 import AuthContext from "./context/AuthContext";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cart } = useContext(CartContext);
-  const { name } = useContext(AuthContext);
+  const { user,logOut } = useContext(AuthContext);
+  console.log("Current user:", user.photoURL);
+
+  const profileImg =
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   const links = (
     <>
@@ -27,6 +32,27 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleLogOutUser = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to logOut your account!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "LogOut",
+          text: "Your account logout Successfully.",
+          icon: "success",
+        });
+        logOut()
+      }
+    });
+  };
 
   return (
     <div className="relative">
@@ -70,9 +96,12 @@ const Navbar = () => {
 
           {/* login and profile  */}
           <div>
-            {name ? (
-              <div className="size-8 bg-amber-600 rounded-full overflow-hidden">
-                
+            {user ? (
+              <div
+                onClick={handleLogOutUser}
+                className="w-8 h-8 bg-amber-600 rounded-full overflow-hidden"
+              >
+                <img src={user.photoURL || profileImg} alt="" />
               </div>
             ) : (
               <Link to={"/login"}>
