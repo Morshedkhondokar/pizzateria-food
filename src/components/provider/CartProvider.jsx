@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartContext from "../context/CartContext";
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
- console.log(cart.length);
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (item) => {
     const exist = cart.find((c) => c._id === item._id);
@@ -40,11 +47,9 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  const removeFromCart = (id)=>{
-    const remove = cart.filter(item => item._id !== id)
-    setCart(remove)
-
-  }
+  const removeFromCart = (id) => {
+    setCart(cart.filter((item) => item._id !== id));
+  };
 
   const cartInfo = {
     cart,
@@ -52,7 +57,7 @@ const CartProvider = ({ children }) => {
     addToCart,
     increaseQuantity,
     decreaseQuantity,
-    removeFromCart
+    removeFromCart,
   };
 
   return (
